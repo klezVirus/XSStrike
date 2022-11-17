@@ -48,7 +48,7 @@ parser.add_argument('--update', help='update',
 parser.add_argument('--timeout', help='timeout',
                     dest='timeout', type=int, default=core.config.timeout)
 parser.add_argument('--proxy', help='use prox(y|ies)',
-                    dest='proxy', action='store_true')
+                    dest='proxy', type=str, default=None)
 parser.add_argument('--crawl', help='crawl',
                     dest='recursive', action='store_true')
 parser.add_argument('--json', help='treat post data as json',
@@ -156,6 +156,8 @@ encoding = base64 if encode and encode == 'base64' else False
 
 if not proxy:
     core.config.proxies = {}
+else:
+    core.config.proxies = {'http': proxy, 'https': proxy}
 
 if update:  # if the user has supplied --update argument
     updater()
